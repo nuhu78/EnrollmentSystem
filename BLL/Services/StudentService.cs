@@ -63,9 +63,9 @@ namespace BLL.Services
 
         // NON-CRUD FEATURES
 
-        public List<StudentDTO> Search(string name, int? departmentId, int? Id)
+        public List<StudentDTO> Search(string? name, int? departmentId, int? studentId)
         {
-            var students = daf.StudentData().Search(name, departmentId, Id);
+            var students = daf.StudentData().Search(name, departmentId, studentId); 
             return MapperConfig.GetMapper().Map<List<StudentDTO>>(students);
         }
 

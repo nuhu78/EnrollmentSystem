@@ -9,7 +9,7 @@ namespace DAL.Interfaces
 {
     public interface IStudentRepository : IRepository<Student>
     {
-        List<Student> Search(string name, int? departmentId, int? Id);
+        List<Student> Search(string? name, int? departmentId, int? studentId);
         List<Student> GetTopStudents(int count);
     }
 }

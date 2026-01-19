@@ -22,19 +22,19 @@ namespace DAL.Repos
                   .ToList();
         }
 
-        public List<Student> Search(string name, int? departmentId, int? Id)
+        public List<Student> Search(string? name, int? departmentId, int? studentId)
         {
             var query = db.Students.AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
-                query = query.Where(s => s.Name.Contains(name));
+                query = query.Where(s => s.Name.StartsWith(name));
 
             if (departmentId.HasValue)
                 query = query.Where(s => s.DepartmentId == departmentId.Value);
-            if (Id.HasValue)
-                query = query.Where(s => s.Id == Id);
+            if (studentId.HasValue)
+                query = query.Where(s => s.Id == studentId.Value);
 
-                     return query
+            return query
                 .Include(s => s.Department)
                 .ToList();
 

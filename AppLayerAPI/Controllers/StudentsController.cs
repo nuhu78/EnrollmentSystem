@@ -59,11 +59,11 @@ namespace AppLayerAPI.Controllers
         // GET: api/students/search?name=Ali&departmentId=1&minCgpa=3.0
         [HttpGet("search")]
         public IActionResult Search(
-      string name,
+      string? name,
       int? departmentId,
-      int? Id)
+      int? studentId)
         {
-            return Ok(service.Search(name, departmentId, Id));
+            return Ok(service.Search(name, departmentId, studentId));
         }
 
         // NON-CRUD: SEARCH
