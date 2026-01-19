@@ -21,6 +21,6 @@ namespace DAL.EF.Models
         // Navigation
         public Department Department { get; set; }
         public ICollection<Enrollment> Enrollments { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+       
     }
 }

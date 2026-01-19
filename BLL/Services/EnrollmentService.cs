@@ -47,7 +47,7 @@ namespace BLL.Services
 
             if (enrolled >= capacity)
             {
-                enrollment.Status = "Rejected";
+                
                 return MapperConfig.GetMapper().Map<EnrollmentDTO>(enrollment);
             }
 
