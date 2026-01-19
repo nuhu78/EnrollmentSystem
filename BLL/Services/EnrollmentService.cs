@@ -23,7 +23,7 @@ namespace BLL.Services
 
         public EnrollmentDTO EnrollStudent(EnrollmentDTO dto)
         {
-            var enrollment = MapperConfig.GetMapper().Map<Enrollment>(dto);
+            
 
             int enrolled = daf.EnrollmentData().CountByCourse(dto.CourseId);
             int capacity = daf.EnrollmentData().GetCourseCapacity(dto.CourseId);
@@ -42,17 +42,27 @@ namespace BLL.Services
                 throw new Exception("Student CGPA too low for enrollment");
 
             // 4️⃣ Duplicate Enrollment Check
-            if (daf.EnrollmentData().Exists(dto.StudentId, dto.CourseId))
-                throw new Exception("Student already enrolled in this course");
-
             if (enrolled >= capacity)
+                throw new Exception("Course capacity is full");
+
+            var existing = daf.EnrollmentData()
+                               .GetEnrollment(dto.StudentId, dto.CourseId);
+            if (existing != null)
             {
-                
-                return MapperConfig.GetMapper().Map<EnrollmentDTO>(enrollment);
+                if (existing.Status == "Enrolled")
+                    throw new Exception("Student already enrolled in this course");
+                if (existing.Status == "Completed")
+                    throw new Exception("Student already Completed in this course");
+                if (existing.Status == "Dropped")
+                {
+              
+                    existing.Status = "Enrolled";
+                    var updated = daf.EnrollmentData().Update(existing);
+                    return MapperConfig.GetMapper().Map<EnrollmentDTO>(updated);
+                }
             }
 
-
-
+            var enrollment = MapperConfig.GetMapper().Map<Enrollment>(dto);
             enrollment.Status = "Enrolled";
 
             var saved = daf.EnrollmentData().Add(enrollment);
@@ -62,16 +72,44 @@ namespace BLL.Services
         public EnrollmentDTO DropCourse(int studentId, int courseId)
         {
             var enrollment = daf.EnrollmentData()
-                                .GetActiveEnrollment(studentId, courseId);
+                                 .GetEnrollment(studentId, courseId);
 
             if (enrollment == null)
-                throw new Exception("Active enrollment not found");
+                throw new Exception("Enrollment not found");
+
+            if (enrollment.Status == "Completed")
+                throw new Exception("Cannot drop a course that is already Completed.");
+
+            if (enrollment.Status == "Dropped")
+                throw new Exception("You have already Dropped the Course.");
 
             enrollment.Status = "Dropped";
 
             var updated = daf.EnrollmentData().Update(enrollment);
             return MapperConfig.GetMapper().Map<EnrollmentDTO>(updated);
         }
+
+        public EnrollmentDTO CompleteCourse(int studentId, int courseId)
+        {
+            var enrollment = daf.EnrollmentData()
+                         .GetEnrollment(studentId, courseId);
+
+            if (enrollment == null)
+                throw new Exception("Enrollment not found");
+
+            if (enrollment.Status == "Dropped")
+                throw new Exception("Cannot complete a dropped course");
+
+            if (enrollment.Status == "Completed")
+                throw new Exception("You have already completed the course");
+
+            enrollment.Status = "Completed";
+
+            var updated = daf.EnrollmentData().Update(enrollment);
+            return MapperConfig.GetMapper().Map<EnrollmentDTO>(updated);
+        }
+
+
 
     }
 }

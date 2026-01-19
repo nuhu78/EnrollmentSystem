@@ -17,33 +17,24 @@ namespace DAL.Repos
 
         public int CountByCourse(int courseId)
         {
-            return db.Enrollments.Count(e => e.CourseId == courseId && e.Status== "Enrolled");
-        }
-
-        public bool Exists(int studentId, int courseId)
-        {
-            return db.Enrollments.Any(e =>
-      e.StudentId == studentId &&
-      e.CourseId == courseId &&
-      e.Status != "Dropped");
-        }
-
-        public Enrollment GetActiveEnrollment(int studentId, int courseId)
-        {
-            return db.Enrollments.FirstOrDefault(e =>
-        e.StudentId == studentId &&
-        e.CourseId == courseId &&
-        e.Status != "Dropped");
+            return db.Enrollments.Count(e =>
+           e.CourseId == courseId &&
+           e.Status == "Enrolled");
         }
 
         public int GetCourseCapacity(int courseId)
         {
             return db.Courses
-                    .Where(c => c.Id == courseId)
-                    .Select(c => c.MaxCapacity)
-                    .FirstOrDefault();
+                   .Where(c => c.Id == courseId)
+                   .Select(c => c.MaxCapacity)
+                   .FirstOrDefault();
         }
 
-
+        public Enrollment GetEnrollment(int studentId, int courseId)
+        {
+            return db.Enrollments.FirstOrDefault(e =>
+             e.StudentId == studentId &&
+             e.CourseId == courseId);
+        }
     }
 }

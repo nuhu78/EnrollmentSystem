@@ -13,8 +13,14 @@ namespace DAL.EF.Models
         public string Name { get; set; }
         public string Code { get; set; }
 
-        public ICollection<Student> Students { get; set; }
-        public ICollection<Course> Courses { get; set; }
+        public virtual List<Student> Students { get; set; }
+        public virtual List<Course> Courses { get; set; }
 
+        public Department()
+        {
+            Students = new List<Student>();
+            Courses = new List<Course>();
+
+        }
     }
 }

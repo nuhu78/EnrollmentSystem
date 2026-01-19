@@ -45,5 +45,18 @@ namespace AppLayerAPI.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpPost("Complete")]
+        public IActionResult CompleteCourse(int studentId, int courseId)
+        {
+            try
+            {
+                var result = service.CompleteCourse(studentId, courseId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

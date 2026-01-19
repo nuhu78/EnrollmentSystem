@@ -14,8 +14,13 @@ namespace DAL.EF.Models
         public int MaxCapacity { get; set; }
 
         public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public virtual List<Enrollment> Enrollments { get; set; }
+
+        public Course()
+        {
+            Enrollments = new List<Enrollment>();
+        }
     }
 }

@@ -11,9 +11,9 @@ namespace DAL.Interfaces
     {
 
         int CountByCourse(int courseId);
-        bool Exists(int studentId, int courseId);
+
         int GetCourseCapacity(int courseId);
 
-        Enrollment GetActiveEnrollment(int studentId, int courseId);
+        Enrollment GetEnrollment(int studentId, int courseId);
     }
 }

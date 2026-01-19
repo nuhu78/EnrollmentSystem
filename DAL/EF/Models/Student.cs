@@ -15,12 +15,15 @@ namespace DAL.EF.Models
         public double Cgpa { get; set; }
         public string Status { get; set; }
 
-        // EF automatically treats this as FK
         public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
 
-        // Navigation
-        public Department Department { get; set; }
-        public ICollection<Enrollment> Enrollments { get; set; }
-       
+        public virtual List<Enrollment> Enrollments { get; set; }
+
+        public Student()
+        {
+            Enrollments = new List<Enrollment>();
+        }
+
     }
 }
