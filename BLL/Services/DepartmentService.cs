@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
 using DAL;
+using DAL.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,14 +36,14 @@ namespace BLL.Services
 
         public DepartmentDTO Add(DepartmentDTO dto)
         {
-            var entity = MapperConfig.GetMapper().Map<DAL.EF.Models.Department>(dto);
+            var entity = MapperConfig.GetMapper().Map<Department>(dto);
             var saved = daf.DepartmentData().Add(entity);
             return MapperConfig.GetMapper().Map<DepartmentDTO>(saved);
         }
 
         public DepartmentDTO Update(DepartmentDTO dto)
         {
-            var entity = MapperConfig.GetMapper().Map<DAL.EF.Models.Department>(dto);
+            var entity = MapperConfig.GetMapper().Map<Department>(dto);
             var updated = daf.DepartmentData().Update(entity);
             return MapperConfig.GetMapper().Map<DepartmentDTO>(updated);
         }

@@ -36,6 +36,11 @@ namespace BLL.Services
 
         public StudentDTO Add(StudentDTO dto)
         {
+            var department = daf.DepartmentData().Get(dto.DepartmentId);
+
+            if (department == null)
+                throw new Exception("Invalid  Department");
+
             var student = MapperConfig.GetMapper().Map<Student>(dto);
 
             // BUSINESS RULE: Auto status set
@@ -47,6 +52,11 @@ namespace BLL.Services
 
         public StudentDTO Update(StudentDTO dto)
         {
+            var department = daf.DepartmentData().Get(dto.DepartmentId);
+
+            if (department == null)
+                throw new Exception("Invalid  Department");
+
             var student = MapperConfig.GetMapper().Map<Student>(dto);
 
             // BUSINESS RULE: Auto status update

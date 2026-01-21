@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
 using DAL;
+using DAL.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,14 +34,24 @@ namespace BLL.Services
 
         public CourseDTO Add(CourseDTO dto)
         {
-            var entity = MapperConfig.GetMapper().Map<DAL.EF.Models.Course>(dto);
+            var department = daf.DepartmentData().Get(dto.DepartmentId);
+
+            if (department == null)
+                throw new Exception("Invalid  Department");
+
+            var entity = MapperConfig.GetMapper().Map<Course>(dto);
             var saved = daf.CourseData().Add(entity);
             return MapperConfig.GetMapper().Map<CourseDTO>(saved);
         }
 
         public CourseDTO Update(CourseDTO dto)
         {
-            var entity = MapperConfig.GetMapper().Map<DAL.EF.Models.Course>(dto);
+            var department = daf.DepartmentData().Get(dto.DepartmentId);
+
+            if (department == null)
+                throw new Exception("Invalid  Department");
+
+            var entity = MapperConfig.GetMapper().Map<Course>(dto);
             var updated = daf.CourseData().Update(entity);
             return MapperConfig.GetMapper().Map<CourseDTO>(updated);
         }

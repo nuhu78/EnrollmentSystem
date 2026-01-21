@@ -13,7 +13,6 @@ namespace DAL.EF.Models
         public int StudentId { get; set; }
         public virtual Student Student { get; set; }
 
-        // Nullable allowed (drop / re-enroll logic safe)
         public int? CourseId { get; set; }
         public virtual Course Course { get; set; }
 

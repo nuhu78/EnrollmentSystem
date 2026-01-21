@@ -34,13 +34,27 @@ namespace AppLayerAPI.Controllers
         [HttpPost]
         public IActionResult Create(CourseDTO dto)
         {
-            return Ok(service.Add(dto));
+            try
+            {
+                return Ok(service.Add(dto));
+            }
+            catch (Exception ex) {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut]
         public IActionResult Update(CourseDTO dto)
         {
-            return Ok(service.Update(dto));
+            try
+            {
+                return Ok(service.Update(dto));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         [HttpDelete("{id}")]
