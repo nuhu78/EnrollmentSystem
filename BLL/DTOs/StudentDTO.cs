@@ -12,7 +12,8 @@ namespace BLL.DTOs
         public string Name { get; set; }
         public string Email { get; set; }
         public double Cgpa { get; set; }
-       
         public int DepartmentId { get; set; }
+
+        public string? Status { get; set; }
     }
 }
