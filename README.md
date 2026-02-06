@@ -7,6 +7,7 @@ The system manages core academic entities such as students, departments, and cou
 
 The project strictly follows N-Tier Architecture:
 
+
 AppLayerAPI (Presentation Layer)
 |
 ├── BLL (Business Logic Layer)
@@ -20,6 +21,7 @@ AppLayerAPI (Presentation Layer)
     │   └── DbContext
     ├── Interfaces
     └── Repositories
+
 
 
 Layer Responsibilities
